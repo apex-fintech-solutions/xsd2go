@@ -179,6 +179,10 @@ func (st *SimpleType) GoName() string {
 }
 
 func (st *SimpleType) GoTypeName() string {
+	return st.GoName()
+}
+
+func (st *SimpleType) GetUnderlyingGoTypeName() string {
 	if st.Restriction != nil && st.Restriction.typ != nil {
 		return st.Restriction.typ.GoTypeName()
 	}

@@ -70,6 +70,9 @@ func (e *Element) GoMemLayout() string {
 	if e.isArray() {
 		return "[]"
 	}
+	if st, ok := e.typ.(*SimpleType); ok && st.GetUnderlyingGoTypeName() == "string" {
+		return ""
+	}
 	if (e.MaxOccurs == "1" || e.MaxOccurs == "") && e.MinOccurs == "0" && e.GoTypeName() != "string" {
 		return "*"
 	}
