@@ -9,7 +9,7 @@ import (
     {{- end }}
 )
 
-{{range .ExportableElements }}
+{{range $s := .ExportableElements }}
   // Element
   type {{ .GoName }} struct {
     XMLName xml.Name `xml:"{{.Name}}"`
@@ -26,11 +26,24 @@ import (
     {{- end}}
   }
 
+  {{ range .Elements -}}
+    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() {{.GoMemLayout}}{{ .GoTypeName }} {
+    {{if ne .GoMemLayout "" -}}
+      if e == nil {
+      return nil
+      }
+    {{end -}}
+    return e.{{ .GoFieldName}}
+    }
+
+  {{end}}
 {{end}}
 
 
+
+
 // XSD ComplexType declarations
-{{range .ExportableComplexTypes }}
+{{range $s := .ExportableComplexTypes }}
   {{ range .GoComments }}
   // {{ . -}}
   {{end}}
@@ -55,7 +68,21 @@ import (
 
   InnerXml string `xml:",innerxml" json:"-"`
   }
+
+  {{ range .Elements -}}
+    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() {{.GoMemLayout}}{{ .GoTypeName }} {
+    {{if ne .GoMemLayout "" -}}
+      if e == nil {
+      return nil
+      }
+    {{end -}}
+    return e.{{ .GoFieldName}}
+    }
+
+  {{end}}
 {{end}}
+
+
 
 // XSD SimpleType declarations
 {{range .ExportableSimpleTypes }}
