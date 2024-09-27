@@ -40,8 +40,6 @@ import (
 {{end}}
 
 
-
-
 // XSD ComplexType declarations
 {{range $s := .ExportableComplexTypes }}
   {{ range .GoComments }}
@@ -81,8 +79,6 @@ import (
 
   {{end}}
 {{end}}
-
-
 
 // XSD SimpleType declarations
 {{range .ExportableSimpleTypes }}
