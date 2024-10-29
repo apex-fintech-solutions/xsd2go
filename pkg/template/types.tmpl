@@ -27,9 +27,9 @@ import (
   }
 
   {{ range .Elements -}}
-    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() {{.GoMemLayout}}{{ .GoTypeName }} {
+    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() (def {{.GoMemLayout}}{{ .GoTypeName }}) {
       if e == nil {
-      return nil
+        return def
       }
     return e.{{ .GoFieldName}}
     }
@@ -66,10 +66,10 @@ import (
   }
 
   {{ range .Elements -}}
-    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() {{.GoMemLayout}}{{ .GoTypeName }} {
-      if e == nil {
-      return nil
-      }
+    func (e *{{ $s.GoName }}) Get{{ .GoFieldName}}() (def {{.GoMemLayout}}{{ .GoTypeName }}) {
+    if e == nil {
+    return def
+    }
     return e.{{ .GoFieldName}}
     }
 
